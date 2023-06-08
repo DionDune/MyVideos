@@ -1,0 +1,297 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        .border_bottom_fade {
+            border-image: linear-gradient(rgb(22 20 20), rgb(30 28 28)) 100;
+            border-width: 6px;
+            border-style: solid;
+            border-top: 0px;
+        }
+
+        .fade-border-wrap {
+            position: relative;
+            background: linear-gradient(to right, red, purple);
+            padding: 2px;
+        }
+
+
+
+        .navbar_backBox {
+            background-color: rgb(22 20 20);
+            height: 58px;
+        }
+
+        .navbar_main_col {
+            height: 58px;
+        }
+
+        .main_container {
+            padding-left: 81px;
+            padding-right: 81px;
+        }
+
+        .navbar_container {
+            padding-top: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .navbar_searchBox {
+            padding-left: 65px;
+            padding-right: 40px;
+        }
+
+        .sub-navbar_back {
+            height: 55px;
+            padding-left: 17px;
+            padding-right: 17px;
+            padding-top: 5px;
+        }
+
+        .sub-navbar_box {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .sub-navbar_Button {
+            color: white;
+            width: 100%;
+        }
+
+            .sub-navbar_Button:hover {
+                color: red;
+                border: 1px solid grey;
+            }
+
+
+        .content_header {
+            width: 100%;
+            height: 107px;
+        }
+
+        .content_title {
+            color: white;
+            font-size: 45px;
+            padding-left: 15px;
+        }
+
+
+        .modal-dialog {
+            max-width: 67%;
+            max-height: 44.5%;
+            width: 100%;
+            height: 100%;
+            margin-top: 258px
+        }
+
+
+        .button_login {
+            background-color: rgb(22 20 20);
+            color: white;
+            border: none;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+            .button_login:hover {
+                text-decoration: underline;
+            }
+    </style>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar_backBox p-0" style="height: auto">
+        <div class="main_container" style="display: block; margin-top: auto; width: 100%;">
+            <div class="row navbar_backBox" style="width: 100%">
+                <!--MyVideos Icon-->
+                <div class="col-sm-5 navbar_main_col border_bottom_fade" style="background-color: rgb(22 20 20)">
+                    <div class="navbar_container">
+                        <a class="btn rounded-0 p-0" href="{{ url_for("page_home") }}">
+                            <img src="{{url_for('static', filename='MyVideosWeb.jpg')}}" style="height: 35px; width: 175px;">
+                        </a>
+                    </div>
+                </div>
+
+                <!--Search Bar-->
+                <div class="col-sm-4 navbar_main_col shadow border_bottom_fade">
+                    <div class="navbar_container">
+                        <form action="" method="POST">
+                            <div class="input-group mb-3 navbar_searchBox">
+                                <input type="text" class="form-control" placeholder="Search My Videos" name="Search_Box" />
+                                <div class="input-group-append fade-border-wrap">
+                                    <button type="submit" class="btn btn-outline-secondary p-0 rounded-0 rounded" style="background-color: #c9c9c9; color: black;">
+                                        <img src="{{url_for('static', filename='SearchSymbol1.jpg')}}" style="height: 34px; width: 34px;">
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--Account Buttons-->
+                <div class="col-sm-3 navbar_main_col border_bottom_fade align-items-end" style="background-color: rgb(22 20 20);">
+                    <div class="navbar_container">
+                        {% if account != None %}
+                        <div>
+                            AA
+                        </div>
+                        {% else %}
+                        <div style="margin-left: 45%">
+                            <button type="button" class="btn p-0" data-toggle="modal" data-target="#SignUp-Modal" style="width: 116px; height: 28px; padding-bottom: 30px; background-color: white;">
+                                Join
+                            </button>
+                            <button type="button" class="button_login" data-toggle="modal" data-target="#Login-Modal">
+                                Login
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!--Video filter buttons bar-->
+            {% if not video %}
+            <div class="row sub-navbar_back" style="width: 100%">
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        Favourite Videos
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.75);">
+                        Liked Videos
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 border-bottom-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        Categories
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        Playlists
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        Collections
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        A
+                    </a>
+                </div>
+                <div class="col p-0 sub-navbar_box border_bottom_fade">
+                    <a class="btn rounded-0 p-0 sub-navbar_Button" href="{{ url_for("page_home") }}" style="box-shadow: 0 0px 40px rgba(0,0,0,0.50);">
+                        A
+                    </a>
+                </div>
+            </div>
+
+            <!--Video Title-->
+            {% else %}
+            <div class="content_header">
+                <div class="row">
+                    <div class="content_title">
+                        <b>{{".".join(video.split(".")[:-1])|safe}}</b>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+            {%endif %}
+        </div>
+    </nav>
+
+    <!--Main Page-->
+    <div class="main_container">
+        {% block content%}
+        {% endblock %}
+    </div>
+
+
+    <!--Modals-->
+    <!--Login Modal-->
+    <div class="modal fade" id="Login-Modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>WHY</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Login</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Signup Modal-->
+    <div class="modal fade" id="SignUp-Modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            Email:
+                        </div>
+                        <div class="col">
+                            <input type="text" id="signup_emailaddress" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Username:
+                        </div>
+                        <div class="col">
+                            <input type="text" id="signup_username" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Password:
+                        </div>
+                        <div class="col">
+                            <input type="text" id="signup_password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Login</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

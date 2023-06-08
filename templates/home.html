@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+<html>
+
+{% block content %}
+<body>
+    <style>
+        body {
+            background-color: rgb(22 20 20);
+        }
+
+        video {
+            display: block;
+            margin: 0;
+        }
+
+        .slotTitle_Box {
+            width: 343px;
+            height: 75px;
+        }
+
+        .slotTitle_Button {
+            color: white;
+            font-size: 15px;
+            text-align: center;
+            width: 343px;
+            max-height: 45px;
+            overflow: hidden;
+        }
+
+        .slotTitle_Button:hover {
+            color: #bfbfbf
+        }
+    </style>
+    
+
+    <div class="row align-items-start">
+        {% if video_files %}
+            {% for i in range(0, video_files|length) %}
+                <div class="col p-0">
+                    <a href="view/{{video_files[i]}}" style="width: 343px; height: 193px;">
+                        {% if video_files[i].split(".")[-1] in ["jpg", "PNG", "jfif"] %}
+                        <img src="{{url_for('static', filename="Videos/"+video_files[i])}}" style="width: 343px; height: 193px;">
+                        {% elif video_files[i].split(".")[-1] == "mp4" %}
+                        <video class="flex" style="width: 343px; height: 193px; background-color: black;">
+                            <source src={{url_for('static', filename="Videos/"+video_files[i])}} type="video/mp4" />
+                        </video>
+                        {% endif %}
+                    </a>
+
+                    {% if video_files[i].split(".")[-1] in ["mp4","gif"] %}
+                    <div class="slotTitle_Box">
+                        <a href="view/{{video_files[i]}}" class="btn rounded-0 p-0 slotTitle_Button" style="background-color: #9900cc">
+                            {{".".join(video_files[i].split(".")[:-1])|safe}}
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="slotTitle_Box">
+                        <a href="view/{{video_files[i]}}" class="btn rounded-0 p-0 slotTitle_Button">
+                            {{".".join(video_files[i].split(".")[:-1])|safe}}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+{% endblock %}
+</html>
+

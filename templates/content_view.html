@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+<html>
+
+{% block content %}
+<body>
+    <style>
+        body {
+            background-color: rgb(22 20 20);
+        }
+
+        .content_view_box {
+            background-color: black;
+            height: 516px;
+            width: 100%;
+        }
+        
+        .content_item_video {
+            height: 100%;
+            width: 100%;
+        }
+
+        .content_item_image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            height: 100%;
+        }
+    </style>
+
+
+    <div class="content_view_box">
+        {% if is_video == True %}
+            <video class="flex content_item_video" controls>
+                <source src={{url_for('static', filename="Videos/"+video)}} type="video/mp4" />
+            </video>
+        {% else %}
+            <img src="{{url_for('static', filename="Videos/"+video)}}" class="content_item_image center" >
+        {% endif %}
+    </div>
+
+    <div style="height: 95px;">
+
+    </div>
+
+    <div style="width: 100%;">
+        <div class="row">
+            {% for video_file in video_files %}
+            <div class="col" style="width: 290px; height: 275px; padding-left: 5px; padding-right: 5px;">
+                <a href="{{video_file}}" style="width: 290px; height: 275px;">
+                    {% if video.split(".")[-1] in ["mp4","gif"]%}
+                    <video class="flex" style="width: 280px; height: 158px; background-color: black;">
+                        <source src={{url_for('static', filename="Videos/"+video_file)}} type="video/mp4" />
+                    </video>
+                    {% else %}
+                    <img src="{{url_for('static', filename="Videos/"+video_file)}}" style="width: 280px; height: 158px;">
+                    {% endif %}
+                </a>
+                <div style="padding-left: 5px; padding-right: 5px;">
+                    <a href="{{video_file}}" class="btn rounded-0 p-0" style="color: white; text-align: center; width: 100%; word-wrap: break-word;">
+                        {{video_file}}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock %}
+
+</html>
