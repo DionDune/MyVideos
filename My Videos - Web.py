@@ -69,7 +69,7 @@ def filter_videos(videos_list, parameters):
 #region AppRoutes
 
 @app.route('/uploads/<path:filename>')
-def download_file(filename):
+def Get_AssetFile(filename):
     return send_from_directory("Assets\\", filename, as_attachment=True)
 
 

@@ -116,7 +116,7 @@
                     <div class="navbar_container">
                         <a class="btn rounded-0 p-0" href="{{ url_for("page_home") }}">
                             <!--<img src="{{url_for('static', filename='MyVideosWeb.jpg')}}" style="height: 35px; width: 175px;">-->
-                            <img src="{{ url_for('download_file', filename='MyVideosWeb.jpg') }}" style="height: 35px; width: 175px;">
+                            <img src="{{ url_for('Get_AssetFile', filename='MyVideosWeb.jpg') }}" style="height: 35px; width: 175px;">
                         </a>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                                 <input type="text" class="form-control" placeholder="Search My Videos" name="Search_Box" />
                                 <div class="input-group-append fade-border-wrap">
                                     <button type="submit" class="btn btn-outline-secondary p-0 rounded-0 rounded" style="background-color: #c9c9c9; color: black;">
-                                        <img src="{{ url_for('download_file', filename='SearchSymbol1.jpg') }}" style="height: 34px; width: 34px;">
+                                        <img src="{{ url_for('Get_AssetFile', filename='SearchSymbol1.jpg') }}" style="height: 34px; width: 34px;">
                                     </button>
                                 </div>
                             </div>
