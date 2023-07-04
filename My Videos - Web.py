@@ -13,6 +13,7 @@ global viddir
 MainDirectory = "C:\\Scripts - Flask\\Videos"
 viddir = MainDirector
 
+
 viddir_Static = viddir.split("\\")
 viddir_Static.pop(len(viddir_Static) - 1)
 viddir_Static = "\\".join(viddir_Static)
@@ -77,8 +78,6 @@ def page_home():
     params = []
     if request.method == "POST":
         params = [request.form.get("Search_Box")]
-    #video_files = filter_videos(os.listdir(f"{viddir}\\Videos"), params)
-    #video_files = filter_videos(os.listdir(f"{viddir}\\Videos"), params)
     video_files = filter_videos(os.listdir(f"{viddir}"), params)
     return render_template("home.html", video_files = video_files, account=None)
 
@@ -88,7 +87,6 @@ def content_view(video):
     is_video = False
     if video.split(".")[-1] in ["mp4", "gif"]:
         is_video = True
-    #return render_template("content_view.html", video=video, is_video=is_video, video_files=filter_videos(os.listdir(f"{viddir}\\Videos"), [f".{video.split('.')[-1]}"]))
     return render_template("content_view.html", video=video, is_video=is_video, video_files=filter_videos(os.listdir(f"{viddir}"), [f".{video.split('.')[-1]}"]))
 
 
