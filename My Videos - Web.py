@@ -11,7 +11,7 @@ global viddir
 
 # Put desired directory here. Only prerequisite is that the foler NEEDS to be called Videos, because flask.
 MainDirectory = "C:\\Scripts - Flask\\Videos"
-viddir = MainDirector
+viddir = MainDirectory
 
 
 viddir_Static = viddir.split("\\")
