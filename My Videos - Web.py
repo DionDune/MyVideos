@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func 
 
@@ -9,10 +9,14 @@ from sqlalchemy.sql import func
 basedir = os.path.abspath(os.path.dirname(__file__))
 global viddir 
 viddir = "C:\\Scripts - C#\\MyVideos\\Assets"
+viddir = "C:\\Scripts - Flask\\Videos"
 viddirf = "D:\\p\\New folder\\"
 
+viddir_Static = viddir.split("\\")
+viddir_Static.pop(len(viddir_Static) - 1)
+viddir_Static = "\\".join(viddir_Static)
 
-app = Flask(__name__, static_folder = viddir)
+app = Flask(__name__, static_folder = viddir_Static)
 app.config["SQLALCHEMY_DATABASE_URI"] =\
    'sqlite:///' + os.path.join(basedir, "database.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -62,12 +66,19 @@ def filter_videos(videos_list, parameters):
 
 #region AppRoutes
 
+@app.route('/uploads/<path:filename>')
+def download_file(filename):
+    return send_from_directory("Assets\\", filename, as_attachment=True)
+
+
 @app.route("/", methods=["POST","GET"])
 def page_home():
     params = []
     if request.method == "POST":
         params = [request.form.get("Search_Box")]
-    video_files = filter_videos(os.listdir(f"{viddir}\\Videos"), params)
+    #video_files = filter_videos(os.listdir(f"{viddir}\\Videos"), params)
+    #video_files = filter_videos(os.listdir(f"{viddir}\\Videos"), params)
+    video_files = filter_videos(os.listdir(f"{viddir}"), params)
     return render_template("home.html", video_files = video_files, account=None)
 
 
@@ -76,7 +87,8 @@ def content_view(video):
     is_video = False
     if video.split(".")[-1] in ["mp4", "gif"]:
         is_video = True
-    return render_template("content_view.html", video=video, is_video=is_video, video_files=filter_videos(os.listdir(f"{viddir}\\Videos"), [f".{video.split('.')[-1]}"]))
+    #return render_template("content_view.html", video=video, is_video=is_video, video_files=filter_videos(os.listdir(f"{viddir}\\Videos"), [f".{video.split('.')[-1]}"]))
+    return render_template("content_view.html", video=video, is_video=is_video, video_files=filter_videos(os.listdir(f"{viddir}"), [f".{video.split('.')[-1]}"]))
 
 
 @app.route("/reset")
