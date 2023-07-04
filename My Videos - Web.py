@@ -8,9 +8,8 @@ from sqlalchemy.sql import func
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 global viddir 
-viddir = "C:\\Scripts - C#\\MyVideos\\Assets"
+
 viddir = "C:\\Scripts - Flask\\Videos"
-viddirf = "D:\\p\\New folder\\"
 
 viddir_Static = viddir.split("\\")
 viddir_Static.pop(len(viddir_Static) - 1)
